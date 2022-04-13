@@ -18,6 +18,23 @@ public class lesson4 {
     static int fieldSizeY; // Размерность игрового поля
 
 
+    static void initialize(){
+        // Установим размерность игрового поля
+        fieldSizeX = 3;
+        fieldSizeY = 3;
+
+        // Инициализация массива, описывающего игровое поле
+        field = new char[fieldSizeX][fieldSizeY];
+
+        // Проинициализируем массив, описывающий игровое поле
+        for (int x = 0; x < fieldSizeX; x++) {
+            for (int y = 0; y < fieldSizeY; y++) {
+                field[x][y] = DOT_EMPTY;
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
 
     }
