@@ -81,8 +81,78 @@ public class lesson3 {
     }
 
 
-    static void task2() {
-        System.out.println("Process task2 ...");
+    static void task2(){
+        // Объявляем массив из слов
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic",
+                "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
+        // Объявляем вспомогательный класс Random (для генерации случайного числа, сопоставление случайного числа индексу элементов массива слов)
+        Random random = new Random();
+        // Получаем случайное число
+        int num = random.ints(0, 25).findFirst().getAsInt();
+        // Выводим подсказку (загаданное слово на экран)
+        System.out.format("Компьютер загадал слово, попробуйте его угадать (подсказка: \"%s\").\n", words[num]);
+
+        // Создаем вечный цикл
+        while(true) {
+            String word; // Переменная будет хранить слово, которое вводит пользователь
+            int counter = 0; // Счетчик, который будет хранить кол-во совпавших символов слов
+            System.out.print("Введите слово: ");
+            word = scanner.next();
+            System.out.println();
+
+            // Проходим по массиву из 15 индексов (как от нас требует задание, что бы составить маску из 15 знаков #)
+            for (int i = 0; i < 15; i++){
+                // Если текущий индекс "i" попадает в размерность длинны искомого слова и слова, которое мы ввели с консоли,
+                // сравним символы двух слов по индексу "i"
+                if (word.length() - 1 >= i && words[num].length() - 1 >= i && word.charAt(i) == words[num].charAt(i)){
+                    // Символы слов равны, печатаем символ
+                    System.out.print(word.charAt(i));
+                    // Увеличиваем счетчик совпавших символов слов
+                    counter++;
+                    // Если все символы искомого слова и введенного совпали, мы, фактически, угадали слово, выходим из цикла
+                    if (counter == words[num].length())
+                        break;
+                }
+                else{
+                    // Если символы слов не совпали, печатаем символ #
+                    System.out.print("#");
+                }
+            }
+
+            // Выводим результат сравнения двух слов:
+
+            // Еще раз проверим, если все символы искомого слова и введенного совпали, мы, фактически, угадали слово.
+            // Печатаем соответствующее сообщение и выходим из вечного цикла (завершаем работу метода)
+            if (counter == words[num].length()){
+                System.out.println("\n\nВы успешно угадали слово.");
+                System.out.println("Завершение работы подпрограммы.");
+                return;
+            }
+            else{
+                // Если мы не угадали слово, предложим пользователю сыграть еще раз.
+                System.out.format("\n\nВы не угадали слово.\n");
+                while(true) {
+                    System.out.print("Повторить игру еще раз? (1 – да / 0 – нет): ");
+                    if (scanner.hasNextInt()) {
+                        counter = scanner.nextInt();
+                        if (counter == 0){
+                            System.out.println("Завершение работы подпрограммы.");
+                            return;
+                        }
+                        else if (counter == 1){
+                            break;
+                        }
+                        else{
+                            System.out.println("Номер пункта меню не найден. Пожалуйста, повторите попытку ввода.");
+                            scanner.next();
+                        }
+                    } else {
+                        System.out.println("Вы ввели некорректное число. Пожалуйста, повторите попытку ввода.");
+                        scanner.next();
+                    }
+                }
+            }
+        }
     }
     static void task3() {
         System.out.println("Process task3 ...");
