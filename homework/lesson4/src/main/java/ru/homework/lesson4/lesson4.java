@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class lesson4 {
 
-
     static final char DOT_HUMAN = 'X'; // Фишка игрока - человек
     static final char DOT_AI = '0'; // Фишка игрока - компьютер
     static final char DOT_EMPTY = '•'; // Признак пустого поля
