@@ -8,7 +8,6 @@ public class lesson4 {
     static final char DOT_HUMAN = 'X'; // Фишка игрока - человек
     static final char DOT_AI = '0'; // Фишка игрока - компьютер
     static final char DOT_EMPTY = '■'; // Признак пустого поля
-    static final int WIN_COUNT = 3; // Выигрышная комбинация
 
     static final Scanner scanner = new Scanner(System.in);
     static final Random random = new Random();
@@ -17,16 +16,33 @@ public class lesson4 {
     static int fieldSizeX; // Размерность игрового поля
     static int fieldSizeY; // Размерность игрового поля
 
+    // Инициализация игоровых клеток
+    static void initialize(){
+        // Установим размерность игрового поля
+        fieldSizeX = 3;
+        fieldSizeY = 3;
+
+        // Инициализация массива, описывающего игровое поле
+        field = new char[fieldSizeX][fieldSizeY];
+
+        // Проинициализируем массив, описывающий игровое поле
+        for (int x = 0; x < fieldSizeX; x++) {
+            for (int y = 0; y < fieldSizeY; y++) {
+                field[x][y] = DOT_EMPTY;
+            }
+        }
+
+    }
+
      //Отрисовка игрового поля
      static void printField(){
-        //выводим квадрат в самом в углу
+        //выводим символ в самом в углу
         System.out.print("●");
 
         // Шапка поля - выводим номера столбцов, чередуя между ними символ -
         // через цикл перебираем если четное то выводим символ если нет то выводим число +1
         for (int i = 0; i < fieldSizeX*2 + 1; i++) {
             // коротнкая запись - тернарная операция
-
             System.out.print((i % 2) == 0 ? "·" : i /2 + 1);
 
             /*  // длинная запись
@@ -48,8 +64,10 @@ public class lesson4 {
 
         // отрисовка самого поля
         for (int x = 0; x < fieldSizeX; x++) {
+            //распечатываем номера строк
             System.out.print(x + 1 + "|");
             for (int y = 0; y <  fieldSizeY; y++) {
+                //распечатываем пустые клетки из масива
                 System.out.print(field[x][y] + "|");
             }
             System.out.println();
@@ -61,24 +79,6 @@ public class lesson4 {
         }
 
         System.out.println();
-
-    }
-
-    // Инициализация игоровых клеток
-    static void initialize(){
-        // Установим размерность игрового поля
-        fieldSizeX = 3;
-        fieldSizeY = 3;
-
-        // Инициализация массива, описывающего игровое поле
-        field = new char[fieldSizeX][fieldSizeY];
-
-        // Проинициализируем массив, описывающий игровое поле
-        for (int x = 0; x < fieldSizeX; x++) {
-            for (int y = 0; y < fieldSizeY; y++) {
-                field[x][y] = DOT_EMPTY;
-            }
-        }
 
     }
 
@@ -151,25 +151,10 @@ public class lesson4 {
 
         // Проверка по диагоналям
         if(field[0][0] == c && field[1][1] == c && field[2][2] == c) return true;
-        if(field[0][2] == c && field[1][1] == c && field[2][0] == c) return true;
-
-        return false;
+        return field[0][2] == c && field[1][1] == c && field[2][0] == c;
     }
 
-//    static boolean checkWinV2(char c){
-//        for (int x = 0; x < fieldSizeX; x++) {
-//            for (int y = 0; y < fieldSizeY; y++) {
-//                if (checkWinDot(c, x, y, WIN_COUNT))
-//                    return true;
-//            }
-//        }
-//        return false;
-//    }
 
-//    static boolean checkWinDot(char c, int x, int y, int winCount){
-//        //TODO: Совершаем 4 проверки
-//        return true;
-//    }
 
     //Метод проверки состояния игры
     static boolean gameChecks(char dot, String message){
@@ -186,25 +171,23 @@ public class lesson4 {
     }
 
     public static void main(String[] args) {
-        while (true){
+        do {
             initialize();
             printField();
-            while (true){
+            while (true) {
                 humanTurn(); // Обработка хода человека
                 printField();
-                if (gameChecks(DOT_HUMAN, "Вы победили!")){
+                if (gameChecks(DOT_HUMAN, "Вы победили!")) {
                     break;
                 }
                 aiTurn();
                 printField();
-                if (gameChecks(DOT_AI, "Победил компьютер!")){
+                if (gameChecks(DOT_AI, "Победил компьютер!")) {
                     break;
                 }
             }
             System.out.print("Желаете сыграть еще раз? (Y - да)");
-            if (!scanner.next().equalsIgnoreCase("Y"))
-                break;
-        }
+        } while (scanner.next().equalsIgnoreCase("Y"));
 
     }
 
