@@ -33,8 +33,6 @@ public class Sample02 {
         if (animal instanceof FatCat){
             System.out.println("Вес животного: " + ((FatCat)animal).getWeight());
         }
-
-
     }
 
 }
