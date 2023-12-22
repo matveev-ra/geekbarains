@@ -6,8 +6,8 @@ public class testmain4 {
 
         Actions[] actions = new Actions[3];
         actions[0] = new Human("Boris", 10, 2);
-        actions[1] = new Robot("00110010111", 5, 2);
-        actions[2] = new Cat("Nya", 6, 1);
+        actions[1] = new Robot("Robik", 5, 2);
+        actions[2] = new Cat("Barsik", 6, 1);
 
         Barrier[] barriers = new Barrier[2];
         barriers[0] = new Road( 10);

@@ -44,6 +44,7 @@ public class lesson7 {
 
     }
 }
+
 class Cat {
     private String name;
     private int appetite;
